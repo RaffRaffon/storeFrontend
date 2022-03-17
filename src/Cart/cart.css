@@ -1,0 +1,19 @@
+.side-cart {
+    position: fixed;
+    height: 100%;
+    width: 20%;
+    border: 3px solid blue;
+    right:0;
+    background-color: white;
+}
+
+.cart-footer{
+    position: absolute;
+    bottom: 0;
+    left:35%;
+  }
+  
+  
+  .item-in-cart{
+    margin:10px
+  }

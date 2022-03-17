@@ -1,0 +1,88 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import './header.css';
+import { useNavigate } from 'react-router-dom';
+import { ItemsService } from '../services/items.service';
+import { useEffect, useState } from 'react';
+import LocalStorageCart from '../Cart/LocalStorageCart'
+import DatabaseCart from '../Cart/DatabaseCart';
+
+function Header() {
+    const navigate = useNavigate()
+    const state = useSelector(state => state)
+    const dispatch = useDispatch()
+    const storeURL = 'http://localhost:3000/'
+    const [totalProductsAmount, setTotalProducsAmount] = useState(0)
+    const [name, setName] = useState()
+    Storage.prototype.setObj = function (key, obj) {
+        return this.setItem(key, JSON.stringify(obj))
+    }
+    Storage.prototype.getObj = function (key) {
+        return JSON.parse(this.getItem(key))
+    }
+    useEffect(() => {
+        // Need to make this useEffect to happen one time only and not on every page 
+        if (!state.itemsFirstLoad) {
+            // Using redux perhaps fixes the problem, but it still runs on every page.
+            setTheItems()
+        }
+        // if (localStorage.getObj('userDetails') !== null) {
+        //     setName(localStorage.getObj('userDetails').userName)
+        // }
+        async function setTheItems() {
+            const items = await ItemsService.getAllItems()
+            const originalAllItems = [...items]
+            dispatch({ type: "SETITEMS", payload: { items, originalAllItems } })
+        }
+
+    }, [state.isLoggedIn])
+    // useEffect(() => {
+    //     // Need to make this useEffect to happen one time only and not on every page   
+    //     console.log(localStorage.getObj('userDetails') );
+    //     if (localStorage.getObj('userDetails') !== null) {
+    //         setName(localStorage.getObj('userDetails').userName)
+    //     }
+    // }, [state.isLoggedIn])
+    function logout() {
+        localStorage.removeItem('store-user');
+        localStorage.removeItem('userDetails');
+        dispatch({ type: "LOGOUT" })
+        navigate('/')
+    }
+    async function handleSearch() {
+        const newItems = state.originalAllItems.filter(item => item.Name.includes(document.getElementById("searchInput").value))
+        dispatch({ type: "SETNEWITEMS", payload: { newItems } })
+        if (storeURL !== window.location.href) {
+            // Need to change storeURL to productionURL later
+            console.log("changed url location to store url");
+            navigate('/')
+        }
+    }
+
+    function displayCart() {
+        dispatch({ type: "DISPLAYCART" })
+    }
+
+    function setTotalAmount(amount) {
+        setTotalProducsAmount(amount)
+    }
+    return (<div>
+        {localStorage['store-user'] ? <DatabaseCart setTotalAmount={setTotalAmount} /> : <LocalStorageCart setTotalAmount={setTotalAmount} />}
+        <header >
+            <div className="search-input">
+                <input id="searchInput"  ></input>
+                <button onClick={handleSearch}>Search</button></div>
+            {localStorage['store-user'] ? <div className='welcomeUser'>{"Welcome, " + localStorage['userName']}
+                <Link className='header-item' to="/personalInfo">Edit personal info</Link>
+                <div className='header-item' onClick={logout}>Logout</div>
+                <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
+                <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link>
+            </div> : <div className='welcomeUser'><Link className='header-item' to="/login">Login or register</Link>
+                <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
+                <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link></div>}
+        </header>
+    </div>)
+}
+export default Header;
+
+

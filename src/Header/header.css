@@ -1,0 +1,31 @@
+header {
+    background-color: brown;
+    height:50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin:0;
+}
+
+.welcomeUser {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    color:white;
+}
+
+.header-item {
+    margin: 10px;
+    color:white;
+    cursor: pointer;
+}
+
+.side-cart {
+    position: fixed;
+    height: 100%;
+    width: 20%;
+    border: 3px solid blue;
+    right:0;
+    background-color: white;
+}
