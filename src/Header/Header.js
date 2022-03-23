@@ -13,7 +13,6 @@ function Header() {
     const dispatch = useDispatch()
     const storeURL = 'http://localhost:3000/'
     const [totalProductsAmount, setTotalProducsAmount] = useState(0)
-    const [name, setName] = useState()
     Storage.prototype.setObj = function (key, obj) {
         return this.setItem(key, JSON.stringify(obj))
     }
@@ -45,7 +44,7 @@ function Header() {
     // }, [state.isLoggedIn])
     function logout() {
         localStorage.removeItem('store-user');
-        localStorage.removeItem('userDetails');
+        localStorage.removeItem('userName');
         dispatch({ type: "LOGOUT" })
         navigate('/')
     }
@@ -77,6 +76,7 @@ function Header() {
                 <div className='header-item' onClick={logout}>Logout</div>
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link>
+                <Link className='header-item' to="/myorders">My Orders</Link>
             </div> : <div className='welcomeUser'><Link className='header-item' to="/login">Login or register</Link>
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link></div>}

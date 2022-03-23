@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { CartService } from '../services/cart.service';
+import { useDispatch, useSelector } from 'react-redux';
 import './cart.css';
 function DatabaseCart(props) {
+    const dispatch = useDispatch()
     const state = useSelector(state => state)
 
     const [cart, setCart] = useState([])
@@ -19,14 +21,9 @@ function DatabaseCart(props) {
         getCart(localStorage['store-user'])
     }, [state.cartChanged])
     async function getCart(token) {
-        if (token) {
-            const cartData = await CartService.getUserCartData(token)
+       const cartData = await CartService.getUserCartData(token)
             setCart(cartData.Items || cartData)
             console.log("get cart by token is working");
-        } else {
-            console.log("get cart, the cart is empty");
-            setCart([])
-        }
     }
     function addItemAmount(index) {
         let userCart = [...cart]
@@ -53,16 +50,17 @@ function DatabaseCart(props) {
         setCart(userCart)
     }
     function setTheTotalOfTheCart() {
-        console.log(cart);
         let userCart = [...cart]
         let totalPrice = 0
         userCart.forEach(item => { totalPrice += item.TotalPrice })
+        dispatch({ type: "SETCARTTOTALS", payload: { totalPrice } })
         setTotalCartPrice(totalPrice)
     }
     function getTotalProductsInCart() {
         let userCart = [...cart]
         let totalProducts = 0
         userCart.forEach(item => { totalProducts += item.Amount })
+        dispatch({ type: "SETCARTTOTALS", payload: { totalProducts } })
         setTotalProducts(totalProducts)
         props.setTotalAmount(totalProducts)
     }
@@ -71,13 +69,15 @@ function DatabaseCart(props) {
         CartService.updateUserCartData([], localStorage['store-user'])
         setCart([])
     }
-    
+    function reduxCart(){
+        console.log(state.totalProducts, state.totalPrice);
+    }
     return (
         <div>
             {state.displayCart && <div className='side-cart'>
                 {cart.map((item, index) => {
                     return (
-                        <div className='item-in-cart' key={index}>
+                        <div className='item-in-cart' key={item._id}>
                             <div>{item.Name}</div>
                             <div> {item.Price}</div>
                             <div>Amount: {item.Amount}</div>
@@ -88,12 +88,16 @@ function DatabaseCart(props) {
                         </div>)
                 })}
                 <div className='cart-footer'>
+                <button onClick={reduxCart}>show redux cart info</button>
+
                     <div>Total price for all products:{totalCartPrice}</div>
                     <div>Total products in cart: {totalProducts}</div>
                     <button onClick={removeAllProducts}>Remove all products</button>
-
+                    <Link to="/checkout">Checkout</Link>
                 </div>
+                
             </div>}
+            
         </div>
     )
 }

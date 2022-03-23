@@ -1,0 +1,78 @@
+Need to tokenize local storage username
+
+Need understand how jwt secure routes, and secure routes (add auth middleware)
+
+Need to return catched errors and send their status messages
+
+Need to hide the jwtSecret
+
+Need to add jwt to user edit
+
+Need to check if redux persist is working
+
+Need to change storeURL to productionURL later
+
+Need to add option of adding to cart and purchasing with no registration
+
+Storing data locally is normal enough, but make sure to consider what happens if you change your cart or product schema and that invalidates the local data.
+
+i will be annoyed using your service if i start putting together a cart on my laptop, try resume on my cellphone but then find out my cart data is device-specific you should store their cart data on the server
+
+Need to block the copy paste mechanism at verify password
+
+Check email at register component doesn't work, fix it
+
+Disable access to Personal area if user did not login, navigate back to main page
+
+When the user log's in, transfer his cart that he made when he didnt logged in, into the database, and delete it from the local storage
+
+For some reason either the Header or the MainPage components rerenders for like 3 times for no reason, fix it
+
+Need to change objectfication at LocalStorageCart to work with arrays from the local storage
+
+change the key in mapping to _id
+
+Sometimes when adding items to the cart when the user is logged in, the updates doesn't show at all, only when the page refreshes
+
+When entering personal area, and reloading the page, the user logs out
+
+Get redux persist back to work, and change localStorage['userName'] to state.userName
+
+When search entry is inserted, and the user navigates to store page, the items doesn't reload. only reloading the page fixes the problem, fix this
+
+unrelated but you might as well just name them setJSON/getJSON tbh as it's not strictly arrays
+
+When removing a product manually, the localStorage['cart'] doesn't disappear, it beomes an empty array. remove it entirely.
+
+Use $set to update only certain fields, instead of overwritting the whole document.
+
+When navigating from checkout page to store page, the items doesn't load, fix it.
+
+Need to put order summary (total products, total to pay) in checkout page.
+
+Need to change address field to street name field in personal info
+
+Need to add regex to Personal Info schema
+
+Find out what causing the warning inside DatabaseCart and LocalStorageCart (key prop warning)
+
+Add images of the items into the cart 
+
+Sometimes, when the cart has 0 items, and you add items into the cart, the cart on the frontend doesn't update, fix this. 
+
+When you're logged out, and you make a cart, and then login, you insert a cart into the database, which belongs to the same user. if you do this again, you register another cart which belongs to
+the same user, but the cart shown is the first cart you've made. make it so that the database contain only one cart per user.
+
+Add phone number verification 
+
+Confirm order button at checkout page does not validate field correctly
+
+There are many warnings throught the components, such as in My Orders, fix them.
+
+Need to add order date and order pay date to the orders.
+
+Need to add pay status to the orders.
+
+Need to add specific order page.
+
+Need to add Cancel button to My orders.

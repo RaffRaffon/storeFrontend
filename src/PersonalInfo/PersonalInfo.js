@@ -20,29 +20,25 @@ function PersonalInfo() {
         const flname = document.getElementById("flname").value
         const email = document.getElementById("email").value
         const password = document.getElementById("password").value
-        const address = document.getElementById("address").value
+        const streetName = document.getElementById("streetname").value
         const hnumber = document.getElementById("hnumber").value
         const anumber = document.getElementById("anumber").value
         const city = document.getElementById("city").value
         const zipcode = document.getElementById("zipcode").value
         const pnumber = document.getElementById("pnumber").value
-        const userData = { flname, email, password, address, hnumber, anumber, city, zipcode, pnumber }
+        const userData = { flname, email, password, streetName, hnumber, anumber, city, zipcode, pnumber }
         usersService.updatePersonalData(userData)
         alert("Data updated")
-    }
-    function showIsUserLoggedIn(){
-        console.log(isDataReady);
     }
     return (
         <div>
             <Header />
-            <button onClick={showIsUserLoggedIn}>showIsUserLoggedIn</button>
             <h1>Personal area</h1>
             <div>Personal information</div>
             {isDataReady && <Formik
                 initialValues={{
                     flname: initialPersonalData.FLname, password: initialPersonalData.Password, email: initialPersonalData.Email, vpassword: '',
-                    address: initialPersonalData.Address, hnumber: initialPersonalData.Hnumber, anumber: initialPersonalData.Anumber, city: initialPersonalData.City, zipcode: initialPersonalData.Zipcode,
+                    streetname: initialPersonalData.StreetName, hnumber: initialPersonalData.Hnumber, anumber: initialPersonalData.Anumber, city: initialPersonalData.City, zipcode: initialPersonalData.Zipcode,
                     pnumber: initialPersonalData.Pnumber
                 }}
                 validationSchema={personalinfoSchema}
@@ -51,7 +47,7 @@ function PersonalInfo() {
             >
                 <Form >
                     <div >
-                        <label htmlFor="flname">Full name</label>
+                        <label>Full name</label>
                         <Field type="text" id="flname" name="flname" placeholder="2-16 characters" />
                         <ErrorMessage component="small" name="flname" className="flname-error" />
                     </div>
@@ -71,9 +67,9 @@ function PersonalInfo() {
                         <ErrorMessage component="small" name="vpassword" />
                     </div>
                     <div >
-                        <label>Address</label>
-                        <Field type="text" name="address" id="address" placeholder="Enter your address" />
-                        <ErrorMessage component="small" name="address" />
+                        <label>Street name</label>
+                        <Field type="text" name="streetname" id="streetname" placeholder="Enter your street name" />
+                        <ErrorMessage component="small" name="streetname" />
                     </div>
                     <div >
                         <label>House number (the number of your house in the street)</label>
@@ -100,7 +96,7 @@ function PersonalInfo() {
                         <Field type="text" name="pnumber" id="pnumber" />
                         <ErrorMessage component="small" name="pnumber" />
                     </div>
-                    <button type="submit" >Update</button>
+                    <button type="submit">Update</button>
                 </Form>
             </Formik>}
         </div>

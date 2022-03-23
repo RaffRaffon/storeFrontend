@@ -9,10 +9,12 @@ import MainPage from './MainPage/MainPage'
 import Login from './Login/Login'
 import Register from './Register/Register'
 import PersonalInfo from './PersonalInfo/PersonalInfo'
+import Checkout from './Checkout/Checkout';
 import './index.css';
 // import { PersistGate } from 'reduxjs-toolkit-persist/integration/react'
 import { Provider } from 'react-redux'
 import store from './Redux/store'
+import MyOrders from './MyOrders/MyOrders';
 // import { store, persistor } from './Redux/persist'
 
 render(
@@ -29,6 +31,10 @@ render(
       <Route path="/register" element={<Register />}>
       </Route>
       <Route path="/personalInfo" element={<PersonalInfo />}>
+      </Route>
+      <Route path="/checkout" element={<Checkout />}>
+      </Route>
+      <Route path="/myorders" element={<MyOrders />}>
       </Route>
     </Routes>
   </BrowserRouter>

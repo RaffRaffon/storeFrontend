@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import './cart.css';
 function LocalStorageCart(props) {
     const dispatch = useDispatch()
@@ -51,16 +53,20 @@ function LocalStorageCart(props) {
         let totalPrice = 0
         const items = localStorage.getArr('cart') || []
         items.forEach(item => { totalPrice += item.TotalPrice });
+        dispatch({ type: "SETCARTTOTALS", payload: { totalPrice } })
         setTotalCartPrice(totalPrice)
     }
     function getTotalProductsInCart() {
         let totalProducts = 0
         const items = localStorage.getArr('cart') || []
         items.forEach(item => { totalProducts += item.Amount });
+        dispatch({ type: "SETCARTTOTALS", payload: { totalProducts } })
         setTotalProducts(totalProducts)
         props.setTotalAmount(totalProducts)
     }
-    
+    function reduxCart(){
+        console.log(state.totalProducts, state.totalPrice);
+    }
     return (
         <div>
             {state.displayCart && <div className='side-cart'>
@@ -77,11 +83,11 @@ function LocalStorageCart(props) {
                         </div>)
                 })}
                 <div className='cart-footer'>
-
+                <button onClick={reduxCart}>show redux cart info</button>
                     <div>Total price for all products:{totalCartPrice}</div>
                     <div>Total products in cart: {totalProducts}</div>
                     <button onClick={() => { localStorage.removeItem('cart'); dispatch({ type: "CHANGECART" }); setCart([]) }}>Remove all products</button>
-
+                    <Link to="/checkout">Checkout</Link>
                 </div>
             </div>}
         </div>

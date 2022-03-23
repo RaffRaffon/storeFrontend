@@ -4,7 +4,6 @@ import Header from '../Header/Header'
 import { useEffect } from 'react';
 import { usersService } from "../services/users.service";
 import { CartService } from '../services/cart.service';
-
 function MainPage() {
   const dispatch = useDispatch()
   const state = useSelector(state => state)
@@ -45,6 +44,7 @@ function MainPage() {
       let cartData = cartFromDB.Items || cartFromDB
       let checkIfExist = cartData.find(item => { return item.Id === id })
       if (!checkIfExist) {
+        // Use $set to update only certain fields, instead of overwritting the whole document.
         cartData.push({ Name, Price, Picture, Amount, TotalPrice: Price * Amount, Id: id })
         CartService.updateUserCartData(cartData, localStorage['store-user'])
         dispatch({ type: "CHANGECART" })
@@ -76,29 +76,6 @@ function MainPage() {
   return (
     <div>
       <Header />
-      <p>Need to tokenize local storage username</p>
-      <p>Need understand how jwt secure routes, and secure routes (add auth middleware)</p>
-      <p>Need to return catched errors and send their status messages</p>
-      <p>Need to hide the jwtSecret</p>
-      <p>Need to add jwt to user edit</p>
-      <p>Need to check if redux persist is working</p>
-      <p>Need to change storeURL to productionURL later</p>
-      <p>Need to add option of adding to cart and purchasing with no registration</p>
-      <p>Storing data locally is normal enough, but make sure to consider what happens if you change your cart or product schema and that invalidates the local data.</p>
-      <p>i will be annoyed using your service if i start putting together a cart on my laptop, try resume on my cellphone but then find out my cart data is device-specific
-        you should store their cart data on the server</p>
-      <p>Need to block the copy paste mechanism at verify password</p>
-      <p>Check email at register component doesn't work, fix it</p>
-      <p>Disable access to Personal area if user did not login, navigate back to main page</p>
-      <p>When the user log's in, transfer his cart that he made when he didnt logged in, into the database, and delete it from the local storage</p>
-      <p>For some reason either the Header or the MainPage components rerenders for like 3 times for no reason, fix it</p>
-      <p>Need to change objectfication at LocalStorageCart to work with arrays from the local storage</p>
-      <p>change the key in mapping to _id</p>
-      <p>Sometimes when adding items to the cart when the user is logged in, the updates doesn't show at all, only when the page refreshes</p>
-      <p>When entering personal area, and reloading the page, the user logs out</p>
-      <p>Get redux persist back to work, and change localStorage['userName'] to state.userName</p>
-      <p>When search entry is inserted, and the user navigates to store page, the items doesn't reload. only reloading the page fixes the problem, fix this</p>
-      <p>unrelated but you might as well just name them setJSON/getJSON tbh as it's not strictly arrays</p>
       {state.items.map((item) => {
         return (<div key={item._id} className="item">
           <img className="image" src={item.Picture} alt="itemPicture" />
