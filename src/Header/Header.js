@@ -81,13 +81,14 @@ function Header() {
                 <input id="searchInput"  ></input>
                 <button onClick={handleSearch}>Search</button></div>
             {localStorage['store-user'] ? <div className='welcomeUser'>{"Welcome, " + localStorage['userName']}
-                <Link className='header-item' to="/personalInfo">Edit personal info</Link>
+                <Link className='header-item' to="/personalInfo">Edit Personal Info</Link>
                 <div className='header-item' onClick={logout}>Logout</div>
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link>
                 <Link className='header-item' to="/myorders">My Orders</Link>
-                {isAdmin && <Link className='header-item' to="/adminpanel">Admin panel</Link>}
-                {isAdmin && <Link className='header-item' to="/additems">Add Items</Link>}
+                {/* {isAdmin && <Link className='header-item' to="/additems">Items Panel</Link>} */}
+                {isAdmin && <Link className='header-item' to="/itemspanel">Items Panel</Link>}
+
             </div> : <div className='welcomeUser'><Link className='header-item' to="/login">Login or register</Link>
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link></div>}

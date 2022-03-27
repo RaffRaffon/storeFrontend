@@ -107,3 +107,14 @@ Need to change the schema of edated and edatem and their names and ids, its not 
 Need to block access to non admin users who try to access the domains of the admin panel
 
 Need to block the changes a "user" does if he is not admin (if he adds an item, check in the backend if he is admin, by checking if the boolean isAdmin exist in the user's data. if its not, block the change)
+
+Need to add validation to add items and edit items.
+
+When viewing an item details page, and trying to click on other item's detail page from the cart, the other item's detail page doesn't show up, the same details from the old item is shown. fix this.
+
+Need to edit the item specific queries, with $set. 
+
+
+After editing an item, the new data only shows after a refresh. this is probably a problem with redux originalItems. fix this. 
+
+If a user ordered an item that has been edited, it might be problematic. see if it is problematic, and fix if neccesary.

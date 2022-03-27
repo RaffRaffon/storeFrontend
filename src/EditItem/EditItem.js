@@ -1,11 +1,24 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
 import Header from "../Header/Header"
 import { ItemsService } from "../services/items.service"
-import './additems.css';
-function AddItems() {
-    const [itemImagePreview, setItemImagePreview] = useState()
+import './edititem.css';
+function EditItem() {
+    const { id } = useParams()
+    const [itemImagePreview, setItemImagePreview] = useState('')
+    const [item, setItem] = useState({})
 
-    async function addItem() {
+    useEffect(() => {
+        async function getItem() {
+            setItem(await ItemsService.getSpecificItem(id))
+        }
+        getItem()
+    }, [])
+
+    useEffect(() => {
+        if (item.Picture) setItemImagePreview(item.Picture)
+    }, [item])
+    async function editItem() {
         const name = document.getElementById("name").value
         const price = document.getElementById("price").value
         const imageurl = document.getElementById("imageurl").value
@@ -14,8 +27,8 @@ function AddItems() {
         if (imageurl !== '') picture = imageurl
         else if (imageupload !== '') picture = imageupload
         const description = document.getElementById("desc").value
-        const itemData = { name, price, picture, description }
-        alert(await ItemsService.addItem(itemData))
+        const itemData = { name, price, picture, description, _id:id}
+        alert(await ItemsService.editItem(itemData))
     }
 
     function changeItemPreview(e) {
@@ -24,22 +37,22 @@ function AddItems() {
     return (
         <div>
             <Header />
-            <h1>Add item</h1>
+            <h1>Edit item</h1>
             <img src={itemImagePreview} alt="itemImagePreview" className="itemImagePreview"></img><br />
             <br />
-            Name:<input id="name"></input><br />
+            Name:<input defaultValue={item.Name} id="name"></input><br />
             <br />
-            Price:<input id="price"></input><br />
+            Price:<input defaultValue={item.Price} id="price"></input><br />
             <br />
             Image URL:<input id="imageurl" onChange={changeItemPreview}></input><br />
             <br />
             Or image upload:<input id="imageupload"></input><br />
             <br />
-            Description:<textarea id="desc"></textarea><br />
+            Description:<textarea defaultValue={item.Description} id="desc"></textarea><br />
             <br />
-            <button onClick={addItem}>Add item</button>
+            <button onClick={editItem}>Edit item</button>
         </div>
     )
 }
 
-export default AddItems
+export default EditItem

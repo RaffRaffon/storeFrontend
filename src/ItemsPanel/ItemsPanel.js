@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import Header from "../Header/Header"
 import { useDispatch, useSelector } from 'react-redux';
-function EditItems() {
+function ItemsPanel() {
     const dispatch = useDispatch()
     const state = useSelector(state => state)
     return (
@@ -21,13 +21,14 @@ function EditItems() {
                         <td>{item._id}</td>
                         <td>{item.Name}</td>
                         <td>{item.Price}</td>
-                        <td><Link to={"/order/"+item._id}>Edit</Link></td>
+                        <td><Link to={"/edititem/" + item._id}>Edit</Link></td>
                         <td><button>Delete</button></td>
                     </tr>)
                 })}
-            </table>          
+            </table>
+            <Link to="/additems">Add item</Link>
         </div>
     )
 }
 
-export default EditItems
+export default ItemsPanel

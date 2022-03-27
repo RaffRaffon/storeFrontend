@@ -16,4 +16,17 @@ export class ItemsService {
         })
         return response.data
     }
+
+    static async addItem(itemData) {
+        const response = await axios.post(apiUrl + '/api/items/addItem', {
+            data: { itemData }
+        })
+        return response.data
+    }
+    static async editItem(itemData) {
+        const response = await axios.put(apiUrl + '/api/items/editItem', {
+            data: { itemData }
+        })
+        return response.data
+    }
 }

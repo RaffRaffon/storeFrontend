@@ -18,7 +18,8 @@ import MyOrders from './MyOrders/MyOrders';
 import SpecificItem from './SpecificItem/SpecificItem';
 import OrderDetails from './OrderDetails/OrderDetails';
 import AddItems from './AddItems/AddItems';
-import EditItems from './EditItems/EditItems';
+import ItemsPanel from './ItemsPanel/ItemsPanel';
+import EditItem from './EditItem/EditItem';
 // import { store, persistor } from './Redux/persist'
 
 render(
@@ -46,7 +47,9 @@ render(
       </Route>
       <Route path="/additems" element={<AddItems />}>
       </Route>
-      <Route path="/edititems" element={<EditItems />}>
+      <Route path="/itemspanel" element={<ItemsPanel />}>
+      </Route>
+      <Route path="/edititem/:id" element={<EditItem />}>
       </Route>
     </Routes>
   </BrowserRouter>
