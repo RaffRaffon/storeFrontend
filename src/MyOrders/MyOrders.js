@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../Header/Header"
 import { OrdersService } from "../services/orders.service";
 import './myorders.css';
@@ -12,11 +13,10 @@ function MyOrders() {
         getUserOrders()
     }, [])
 
-    useEffect(() => {
-        console.log(orders);
-    }, [orders])
+   
     return (
         <div>
+            
             <Header />
             <h1>My Orders</h1>
             <table>
@@ -24,20 +24,14 @@ function MyOrders() {
                     <th>Order ID</th>
                     <th>Order date</th>
                     <th>Total order cost</th>
-                    <th>Pay status</th>
-                    <th>Pay date</th>
                     <th>Order details</th>
-                    <th>Cancel order</th>
                 </tr>
-                {orders.map((order, index) => {
-                    return (<tr>
+                {orders.map((order) => {
+                    return (<tr key={order._id}>
                         <td>{order._id}</td>
-                        <td>{}</td>
+                        <td>{order.OrderDate}</td>
                         <td>{order.TotalPrice}</td>
-                        <td>{}</td>
-                        <td>{}</td>
-                        <td><button>Details</button></td>
-                        <td><button>Cancel</button></td>
+                        <td><Link to={"/order/"+order._id}>Details</Link></td>
                     </tr>)
                 })}
             </table>

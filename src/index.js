@@ -15,6 +15,10 @@ import './index.css';
 import { Provider } from 'react-redux'
 import store from './Redux/store'
 import MyOrders from './MyOrders/MyOrders';
+import SpecificItem from './SpecificItem/SpecificItem';
+import OrderDetails from './OrderDetails/OrderDetails';
+import AddItems from './AddItems/AddItems';
+import EditItems from './EditItems/EditItems';
 // import { store, persistor } from './Redux/persist'
 
 render(
@@ -35,6 +39,14 @@ render(
       <Route path="/checkout" element={<Checkout />}>
       </Route>
       <Route path="/myorders" element={<MyOrders />}>
+      </Route>
+      <Route path="/item/:id" element={<SpecificItem />}>
+      </Route>
+      <Route path="/order/:id" element={<OrderDetails />}>
+      </Route>
+      <Route path="/additems" element={<AddItems />}>
+      </Route>
+      <Route path="/edititems" element={<EditItems />}>
       </Route>
     </Routes>
   </BrowserRouter>

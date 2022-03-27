@@ -76,3 +76,34 @@ Need to add pay status to the orders.
 Need to add specific order page.
 
 Need to add Cancel button to My orders.
+
+Need to make admin panel.
+
+If you dont remove the users older carts, and then remove the user's latest cart, the previous cart on the list will load. fix this.
+
+Need to store images on a good source.
+
+Need to make a special search results page, not just an altered main page.
+
+Add a back button to search page and specific product page.
+
+When in checkout page, and removing all items from cart, you can still make a purchase. fix this so its not possible to make a purchase if the cart is empty.
+
+After an order is made, save only the last 4 digits of the credit card into the database.
+
+Check if all the products in the cart are removed when completing an order, either from local storage cart or from databasecart.
+
+When logged out, and carts are in local storage cart, when refreshing the page, the cart is gone. this happens with databasecart too. 
+When logged in, every click on diffrent links other than the main store page deletes the cart. fix this.
+
+If the cart is empty, don't let the user to checkout.
+
+Need to make a drop down at the credit card expiration date month and day. right now the user may enter an invalid day or month.
+
+Enforce unregistered users to register, when clicking on Checkout.
+
+Need to change the schema of edated and edatem and their names and ids, its not days and months, its months and years.
+
+Need to block access to non admin users who try to access the domains of the admin panel
+
+Need to block the changes a "user" does if he is not admin (if he adds an item, check in the backend if he is admin, by checking if the boolean isAdmin exist in the user's data. if its not, block the change)

@@ -32,10 +32,10 @@ export const checkoutSchema = yup.object().shape({
 		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
 		.min(16, 'Too short')
 		.required('Required'),
-	edated: yup.string()
+	edatem: yup.string()
 		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
 		.required('Required'),
-	edatem: yup.string()
+	edatey: yup.string()
 		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
 		.required('Required'),
 	cvv: yup.string()

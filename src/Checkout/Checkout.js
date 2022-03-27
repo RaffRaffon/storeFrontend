@@ -5,14 +5,16 @@ import { useEffect, useState } from 'react';
 import { usersService } from '../services/users.service';
 import { checkoutSchema } from './checkout.schema';
 import { CartService } from "../services/cart.service";
-import { useDispatch, useSelector } from 'react-redux';
 import { OrdersService } from "../services/orders.service";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function Checkout() {
-    const dispatch = useDispatch()
+    const navigate = useNavigate();
     const state = useSelector(state => state)
+    const dispatch = useDispatch()
     const [initialPersonalData, setInitialPersonalData] = useState()
     const [isDataReady, setIsDataReady] = useState(false)
-    const [cart, setCart] = useState([])
+    const months = [ 'Pick month','01', '02', '03','04', '05', '06','07', '08', '09','10', '11', '12']
     useEffect(() => {
         async function getPersonalData() {
             setInitialPersonalData(await usersService.getPersonalData())
@@ -21,7 +23,16 @@ function Checkout() {
         if (localStorage['store-user']) getPersonalData()
         else setIsDataReady(true)
     }, [])
-
+    function expirationDateYears(){
+        const dateObj = new Date();
+        const initialYear = dateObj.getUTCFullYear();
+        const yearsArray=['Pick year']
+        for (let i=0;i<=5;i++){
+            const year=String(initialYear+i).substr(-2)
+            yearsArray.push(year)
+        }
+        return yearsArray
+    }
     // useEffect(() => {
     //     async function getCartData() {
     //         const cartDetails = await CartService.getUserCartData(localStorage['store-user'])
@@ -32,6 +43,15 @@ function Checkout() {
     //     }
     //     if (localStorage['store-user']) getCartData()
     // }, [])
+
+    function getOrderDateDetails() {
+        const dateObj = new Date();
+        const month = dateObj.getUTCMonth() + 1; //months from 1-12
+        const day = dateObj.getUTCDate();
+        const year = dateObj.getUTCFullYear();
+        return day + "/" + month + "/" + year;
+    }
+
     async function sendOrder() {
         const flname = document.getElementById("flname").value
         const email = document.getElementById("email").value
@@ -42,18 +62,22 @@ function Checkout() {
         const zipcode = document.getElementById("zipcode").value
         const pnumber = document.getElementById("pnumber").value
         const notes = document.getElementById("notes").value
-        const cnumber = document.getElementById("cnumber").value
-        const eDateDay = document.getElementById("edated").value
-        const eDateMonth = document.getElementById("edatem").value
-        const cvv = document.getElementById("cvv").value
+        const cnumber = document.getElementById("cnumber").value.substr(-4)
         const totalProducts = state.totalProducts
         const totalPrice = state.totalPrice
-        const cartDetails = await CartService.getUserCartData(localStorage['store-user'])
-        const orderData = { flname, email, streetName, hnumber, anumber, city, zipcode, pnumber, notes,
-        cnumber, eDateDay, eDateMonth, cvv,
-        totalProducts, totalPrice, cartDetails }
+        const orderDate = getOrderDateDetails()
+        let cartDetails
+        if (localStorage['cart']) cartDetails = JSON.parse(localStorage['cart'])
+        else cartDetails = await CartService.getUserCartData(localStorage['store-user'])
+        const orderData = {
+            flname, email, streetName, hnumber, anumber, city, zipcode, pnumber, notes,
+            cnumber,
+            totalProducts, totalPrice, cartDetails, orderDate
+        }
         OrdersService.sendOrder(orderData)
+        dispatch({ type: "ORDERCOMPLETED" })
         alert("Order sent")
+        navigate('/myorders');
     }
 
 
@@ -124,10 +148,14 @@ function Checkout() {
                         <Field placeholder="Credit card number" type="text" name="cnumber" id="cnumber" maxLength="16"></Field>
                         <ErrorMessage component="small" name="cnumber" />
                         <label>Expiration date:</label>
-                        <Field placeholder="Day" type="text" name="edated" id="edated" maxLength="2"></Field>
-                        <ErrorMessage component="small" name="edated" />
-                        <Field placeholder="Month" type="text" name="edatem" id="edatem" maxLength="2"></Field>
+                        <Field  as="select" name="edatem" id="edatem" >
+                        {months.map((month,index)=>{return <option key={index} value={month}>{month}</option>})}
+                        </Field>
                         <ErrorMessage component="small" name="edatem" />
+                        <Field  as="select" name="edatey" id="edatey" >
+                        {expirationDateYears().map((year,index)=>{return <option key={index} value={year}>{year}</option>})}
+                        </Field>
+                        <ErrorMessage component="small" name="edatey" />
                         <Field placeholder="CVV" type="text" name="cvv" id="cvv" maxLength="3"></Field>
                         <ErrorMessage component="small" name="cvv" />
                     </div>

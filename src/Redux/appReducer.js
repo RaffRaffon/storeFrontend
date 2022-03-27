@@ -1,7 +1,7 @@
 const appReducer = (state = {
     originalAllItems: [], items: [], itemsFirstLoad: false,
     displayCart: false, cartChanged: false, isLoggedIn: false, userName: "",
-    totalProducts: 0, totalPrice: 0
+    totalProducts: 0, totalPrice: 0, checkoutCompleted: false
 }, action) => {
     switch (action.type) {
         case "LOGIN":
@@ -15,11 +15,13 @@ const appReducer = (state = {
         case "DISPLAYCART":
             return { ...state, displayCart: (!state.displayCart) }
         case "CHANGECART":
-            return { ...state, cartChanged: (!state.cartChanged) }
+            return { ...state, cartChanged: (!state.cartChanged), checkoutCompleted: false  }
         case "RESETITEMS":
             return { ...state, items: state.originalAllItems }
         case "SETCARTTOTALS":
-            return { ...state, totalProducts: action.payload.totalProducts, totalPrice: action.payload.totalPrice ?? state.totalPrice}
+            return { ...state, totalProducts: action.payload.totalProducts, totalPrice: action.payload.totalPrice ?? state.totalPrice }
+        case "ORDERCOMPLETED":
+            return { ...state, checkoutCompleted: true }
         default:
             return state
     }

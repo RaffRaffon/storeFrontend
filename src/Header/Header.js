@@ -6,6 +6,7 @@ import { ItemsService } from '../services/items.service';
 import { useEffect, useState } from 'react';
 import LocalStorageCart from '../Cart/LocalStorageCart'
 import DatabaseCart from '../Cart/DatabaseCart';
+import { usersService } from '../services/users.service';
 
 function Header() {
     const navigate = useNavigate()
@@ -13,6 +14,7 @@ function Header() {
     const dispatch = useDispatch()
     const storeURL = 'http://localhost:3000/'
     const [totalProductsAmount, setTotalProducsAmount] = useState(0)
+    const [isAdmin, setIsAdmin] = useState(false)
     Storage.prototype.setObj = function (key, obj) {
         return this.setItem(key, JSON.stringify(obj))
     }
@@ -35,6 +37,13 @@ function Header() {
         }
 
     }, [state.isLoggedIn])
+    useEffect(() => {
+        async function getUserData() {
+            const personalData = await usersService.getPersonalData()
+            if (personalData.isAdmin) setIsAdmin(true)
+        }
+        if (localStorage['store-user']) getUserData()
+    }, [])
     // useEffect(() => {
     //     // Need to make this useEffect to happen one time only and not on every page   
     //     console.log(localStorage.getObj('userDetails') );
@@ -77,6 +86,8 @@ function Header() {
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link>
                 <Link className='header-item' to="/myorders">My Orders</Link>
+                {isAdmin && <Link className='header-item' to="/adminpanel">Admin panel</Link>}
+                {isAdmin && <Link className='header-item' to="/additems">Add Items</Link>}
             </div> : <div className='welcomeUser'><Link className='header-item' to="/login">Login or register</Link>
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link></div>}

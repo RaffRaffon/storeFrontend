@@ -20,6 +20,11 @@ function DatabaseCart(props) {
     useEffect(() => {
         getCart(localStorage['store-user'])
     }, [state.cartChanged])
+
+    useEffect(() => {
+        if (state.checkoutCompleted) removeAllProducts()
+    }, [state.checkoutCompleted])
+
     async function getCart(token) {
        const cartData = await CartService.getUserCartData(token)
             setCart(cartData.Items || cartData)
@@ -70,19 +75,20 @@ function DatabaseCart(props) {
         setCart([])
     }
     function reduxCart(){
-        console.log(state.totalProducts, state.totalPrice);
+        console.log(state.totalProducts, state.totalPrice,cart);
     }
     return (
         <div>
             {state.displayCart && <div className='side-cart'>
                 {cart.map((item, index) => {
                     return (
-                        <div className='item-in-cart' key={item._id}>
+                        <div className='item-in-cart' key={item.Id}>
                             <div>{item.Name}</div>
                             <div> {item.Price}</div>
                             <div>Amount: {item.Amount}</div>
                             <button onClick={() => { addItemAmount(index) }}>Add</button>
                             <button onClick={() => { reduceItemAmount(index) }}>Subtract</button>
+                            <Link to={"/item/"+item.Id}>Item details</Link>
                             <div>Total price of the same product: {item.TotalPrice}</div>
                             <button onClick={() => { removeAProductFromCart(index) }}>Remove Product</button>
                         </div>)

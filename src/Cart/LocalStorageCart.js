@@ -22,9 +22,11 @@ function LocalStorageCart(props) {
     }, [cart])
 
     useEffect(() => {
-        console.log("setting the cart is working");
         setCart(localStorage.getArr('cart') || [])
     }, [state.cartChanged])
+    useEffect(() => {
+        if (state.checkoutCompleted) removeAllProducts()
+    }, [state.checkoutCompleted])
     function addItemAmount(index) {
         const items = localStorage.getArr('cart')
         items[index].Amount += 1
@@ -64,29 +66,35 @@ function LocalStorageCart(props) {
         setTotalProducts(totalProducts)
         props.setTotalAmount(totalProducts)
     }
-    function reduxCart(){
-        console.log(state.totalProducts, state.totalPrice);
+    function removeAllProducts() {
+        localStorage.removeItem('cart')
+        dispatch({ type: "CHANGECART" })
+        setCart([])
+    }
+    function reduxCart() {
+        console.log(state.totalProducts, state.totalPrice, cart);
     }
     return (
         <div>
             {state.displayCart && <div className='side-cart'>
                 {cart.map((item, index) => {
                     return (
-                        <div className='item-in-cart' key={item._id}>
+                        <div className='item-in-cart' key={item.Id}>
                             <div>{item.Name}</div>
                             <div> {item.Price}</div>
                             <div>Amount: {item.Amount}</div>
                             <button onClick={() => { addItemAmount(index) }}>Add</button>
                             <button onClick={() => { reduceItemAmount(index) }}>Subtract</button>
+                            <Link to={"/item/" + item.Id}>Item details</Link>
                             <div>Total price of the same product: {item.TotalPrice}</div>
                             <button onClick={() => { removeAProductFromCart(index) }}>Remove Product</button>
                         </div>)
                 })}
                 <div className='cart-footer'>
-                <button onClick={reduxCart}>show redux cart info</button>
+                    <button onClick={reduxCart}>show redux cart info</button>
                     <div>Total price for all products:{totalCartPrice}</div>
                     <div>Total products in cart: {totalProducts}</div>
-                    <button onClick={() => { localStorage.removeItem('cart'); dispatch({ type: "CHANGECART" }); setCart([]) }}>Remove all products</button>
+                    <button onClick={removeAllProducts}>Remove all products</button>
                     <Link to="/checkout">Checkout</Link>
                 </div>
             </div>}
