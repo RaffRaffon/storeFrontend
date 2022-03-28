@@ -20,6 +20,7 @@ import OrderDetails from './OrderDetails/OrderDetails';
 import AddItems from './AddItems/AddItems';
 import ItemsPanel from './ItemsPanel/ItemsPanel';
 import EditItem from './EditItem/EditItem';
+import OrdersPanel from './OrdersPanel/OrdersPanel';
 // import { store, persistor } from './Redux/persist'
 
 render(
@@ -50,6 +51,8 @@ render(
       <Route path="/itemspanel" element={<ItemsPanel />}>
       </Route>
       <Route path="/edititem/:id" element={<EditItem />}>
+      </Route>
+      <Route path="/orderspanel" element={<OrdersPanel />}>
       </Route>
     </Routes>
   </BrowserRouter>

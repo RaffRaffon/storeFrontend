@@ -86,9 +86,8 @@ function Header() {
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link>
                 <Link className='header-item' to="/myorders">My Orders</Link>
-                {/* {isAdmin && <Link className='header-item' to="/additems">Items Panel</Link>} */}
                 {isAdmin && <Link className='header-item' to="/itemspanel">Items Panel</Link>}
-
+                {isAdmin && <Link className='header-item' to="/orderspanel">Orders Panel</Link>}
             </div> : <div className='welcomeUser'><Link className='header-item' to="/login">Login or register</Link>
                 <div className='header-item' onClick={displayCart}>Cart({totalProductsAmount})</div>
                 <Link className='header-item' to="/" onClick={() => dispatch({ type: "RESETITEMS" })}>Store Page</Link></div>}

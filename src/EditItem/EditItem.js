@@ -44,7 +44,7 @@ function EditItem() {
             <br />
             Price:<input defaultValue={item.Price} id="price"></input><br />
             <br />
-            Image URL:<input id="imageurl" onChange={changeItemPreview}></input><br />
+            Image URL:<input defaultValue={item.Picture} id="imageurl" onChange={changeItemPreview}></input><br />
             <br />
             Or image upload:<input id="imageupload"></input><br />
             <br />

@@ -29,4 +29,11 @@ export class ItemsService {
         })
         return response.data
     }
+
+    static async deleteItem(itemId) {
+        const response =  await axios.delete(apiUrl + '/api/items/deleteItem', {
+            data: { itemId }
+        })
+        return response.data
+    }
 }
