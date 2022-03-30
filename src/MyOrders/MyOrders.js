@@ -13,13 +13,13 @@ function MyOrders() {
         getUserOrders()
     }, [])
 
-   
+
     return (
         <div>
-            
+
             <Header />
             <h1>My Orders</h1>
-            <table>
+            {orders.length > 0 ? <table>
                 <tr>
                     <th>Order ID</th>
                     <th>Order date</th>
@@ -31,10 +31,10 @@ function MyOrders() {
                         <td>{order._id}</td>
                         <td>{order.OrderDate}</td>
                         <td>{order.TotalPrice}</td>
-                        <td><Link to={"/order/"+order._id}>Details</Link></td>
+                        <td><Link to={"/order/" + order._id}>Details</Link></td>
                     </tr>)
                 })}
-            </table>
+            </table> : <p>You haven't ordered anything yet!</p>}
         </div>
     )
 }

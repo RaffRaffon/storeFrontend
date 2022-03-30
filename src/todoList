@@ -118,3 +118,17 @@ Need to edit the item specific queries, with $set.
 After editing an item, the new data only shows after a refresh. this is probably a problem with redux originalItems. fix this. 
 
 If a user ordered an item that has been edited, it might be problematic. see if it is problematic, and fix if neccesary.
+
+After checkout, the user is redirected to my orders, which shows all users orders, not his only. fix this. 
+
+Orders made by unlogged users cant be seen in the orders panel eventually. solve it by forcing the user to register. 
+
+Need to check if register and change user data emails are lower cased, if upper cases are inserted. -V
+
+At orders panel, if the user email in the database is uppercased for example, and the entry to search inserted is lowercased, or the other way around, the user's data won't be shown. fix this.
+
+Consider adding phone number validation. Try react-phone-number-input in npm.
+
+Try calling this number from your android phone and see if it rings: +97288664015
+
+Make uploading images to amazon s3 services.

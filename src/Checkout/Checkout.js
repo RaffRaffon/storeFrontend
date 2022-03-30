@@ -21,7 +21,10 @@ function Checkout() {
             setIsDataReady(true)
         }
         if (localStorage['store-user']) getPersonalData()
-        else setIsDataReady(true)
+        else {
+            alert("Please login or register first =)")
+            navigate("/register")
+        }
     }, [])
     function expirationDateYears(){
         const dateObj = new Date();
@@ -53,6 +56,8 @@ function Checkout() {
     }
 
     async function sendOrder() {
+        // The function send order isn't linked to Formik, 
+        // thefore even an empty cart can be sent, or it can be sent without any credit card details, and maybe more problems. this is wrong, fix this.
         const flname = document.getElementById("flname").value
         const email = document.getElementById("email").value
         const streetName = document.getElementById("streetname").value
@@ -85,12 +90,6 @@ function Checkout() {
         <div>
             <Header />
             <h1>Welcome to checkout</h1>
-            {!localStorage['store-user'] &&
-                <div><p>Registered users can easily reuse their saved billing details, so you don't need to refill them in the form!</p>
-                    <p>Already registered?</p>
-                    <button onClick={() => { console.log(isDataReady) }}>show if data is ready </button>
-                    <Link to="/login">Click here to login</Link></div>}
-
             {isDataReady && <Formik
                 initialValues={{
                     flname: initialPersonalData?.FLname, password: initialPersonalData?.Password, email: initialPersonalData?.Email, vpassword: '',

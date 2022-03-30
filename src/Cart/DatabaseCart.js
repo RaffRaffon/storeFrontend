@@ -99,7 +99,7 @@ function DatabaseCart(props) {
                     <div>Total price for all products:{totalCartPrice}</div>
                     <div>Total products in cart: {totalProducts}</div>
                     <button onClick={removeAllProducts}>Remove all products</button>
-                    <Link to="/checkout">Checkout</Link>
+                    {cart.length>0 && <Link to="/checkout">Checkout</Link>}
                 </div>
                 
             </div>}

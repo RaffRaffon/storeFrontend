@@ -1,11 +1,11 @@
 import { usersService } from "../services/users.service"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { registerSchema } from './register.schema';
 import './register.css';
 import Header from "../Header/Header";
 function Register() {
-
+    const navigate = useNavigate()
     function sendRegistrationData() {
         const flname = document.getElementById("flname").value
         const email = document.getElementById("email").value
@@ -13,6 +13,7 @@ function Register() {
         const userData = { flname, email, password }
         usersService.registerUser(userData)
         alert("You're in!")
+        navigate("/login")
     }
     
     return (

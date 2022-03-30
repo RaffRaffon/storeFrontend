@@ -4,9 +4,12 @@ import { usersService } from '../services/users.service';
 import { useEffect, useState } from 'react';
 import Header from '../Header/Header'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function PersonalInfo() {
+    const navigate=useNavigate()
     const [initialPersonalData, setInitialPersonalData] = useState()
     const [isDataReady, setIsDataReady] = useState(false)
+    const [oldEmail,setOldEmail]=useState()
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -16,9 +19,12 @@ function PersonalInfo() {
         }
         getPersonalData()
     }, [])
+    useEffect(() => {
+        if (isDataReady) setOldEmail(document.getElementById("email").value)
+    }, [isDataReady])
     function sendUpdatedData() {
         const flname = document.getElementById("flname").value
-        const email = document.getElementById("email").value
+        const newEmail = document.getElementById("email").value
         const password = document.getElementById("password").value
         const streetName = document.getElementById("streetname").value
         const hnumber = document.getElementById("hnumber").value
@@ -26,8 +32,10 @@ function PersonalInfo() {
         const city = document.getElementById("city").value
         const zipcode = document.getElementById("zipcode").value
         const pnumber = document.getElementById("pnumber").value
-        const userData = { flname, email, password, streetName, hnumber, anumber, city, zipcode, pnumber }
+        const userData = { flname, newEmail, oldEmail, password, streetName, hnumber, anumber, city, zipcode, pnumber }
         usersService.updatePersonalData(userData)
+        localStorage['userName'] = flname
+        navigate("/personalInfo")
         alert("Data updated")
     }
     return (
@@ -93,7 +101,7 @@ function PersonalInfo() {
                     </div>
                     <div >
                         <label>Phone number</label>
-                        <Field type="text" name="pnumber" id="pnumber" />
+                        <Field type="text" name="pnumber" id="pnumber" maxLength="10" />
                         <ErrorMessage component="small" name="pnumber" />
                     </div>
                     <button type="submit">Update</button>

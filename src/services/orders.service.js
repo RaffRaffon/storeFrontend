@@ -24,4 +24,13 @@ export class OrdersService {
         })
         return orderDetails.data
     }
+
+    static async getUserOrders(id){
+        const orderDetails = await axios.get(apiUrl + '/api/orders/getUserOrders', {
+            params: {
+                id
+            }
+        })
+        return orderDetails.data
+    }
 }

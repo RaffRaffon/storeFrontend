@@ -7,7 +7,7 @@ function ItemsPanel() {
     const state = useSelector(state => state)
 
     async function deleteItem(itemId) {
-       return window.confirm("Are you sure?") === true ? alert(await ItemsService.deleteItem(itemId)) : null 
+        if (window.confirm("Are you sure?") === true) alert(await ItemsService.deleteItem(itemId))
     }
     return (
         <div>

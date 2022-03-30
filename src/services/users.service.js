@@ -63,4 +63,12 @@ export class usersService {
         })
     }
 
+
+    static async getUserId(email){
+        // Need to change the post request to get request
+        const response = await axios.post(apiUrl + '/api/users/getUserId', {
+            data: { email }
+        })
+        return response.data
+    }
 }

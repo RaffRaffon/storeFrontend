@@ -25,6 +25,7 @@ export const personalinfoSchema = yup.object().shape({
 	anumber: yup.number()
 		.required('Apartment number is required'),
 	city: yup.string()
+		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
 		.min(2, 'Too short')
 		.required('Required'),
 	zipcode: yup.string()
@@ -32,7 +33,8 @@ export const personalinfoSchema = yup.object().shape({
 		.max(7, 'Too long')
 		.required('Required'),
 	pnumber: yup.string()
-		.min(10, 'Too short')
+		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
+		.min(9, 'Too short')
 		.max(10, 'Too long')
 		.required('Required')
 });
@@ -44,3 +46,4 @@ async function isEmailUnique(value) {
 	const result = await usersService.checkEmail(value)
 	return result
 }
+
