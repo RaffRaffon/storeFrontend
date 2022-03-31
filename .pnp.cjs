@@ -33,7 +33,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["aws-sdk", "npm:2.1105.0"]\
+            ["aws-sdk", "npm:2.1105.0"],\
+            ["react-s3", "npm:1.3.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -73,6 +74,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["base64-js", "npm:1.5.1"],\
             ["ieee754", "npm:1.2.1"],\
             ["isarray", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["crypto-js", [\
+        ["npm:3.3.0", {\
+          "packageLocation": "./.yarn/cache/crypto-js-npm-3.3.0-5b307000b5-193923143a.zip/node_modules/crypto-js/",\
+          "packageDependencies": [\
+            ["crypto-js", "npm:3.3.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -138,6 +148,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-s3", [\
+        ["npm:1.3.1", {\
+          "packageLocation": "./.yarn/cache/react-s3-npm-1.3.1-01f5106ea2-1959519321.zip/node_modules/react-s3/",\
+          "packageDependencies": [\
+            ["react-s3", "npm:1.3.1"],\
+            ["crypto-js", "npm:3.3.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["sax", [\
         ["npm:1.2.1", {\
           "packageLocation": "./.yarn/cache/sax-npm-1.2.1-fd2ad7b223-8dca7d5e1c.zip/node_modules/sax/",\
@@ -159,7 +179,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["storefrontend", "workspace:."],\
-            ["aws-sdk", "npm:2.1105.0"]\
+            ["aws-sdk", "npm:2.1105.0"],\
+            ["react-s3", "npm:1.3.1"]\
           ],\
           "linkType": "SOFT"\
         }]\

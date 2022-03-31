@@ -40,6 +40,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"crypto-js@npm:^3.1.9-1":
+  version: 3.3.0
+  resolution: "crypto-js@npm:3.3.0"
+  checksum: 193923143a4784b2f974366068d96fe8280168fd3fef2bfea9551a5c3e32096f5a8fa49ff4eeb5bd0b9716d325618d38cfbe6125e359a4ef488fbca93e600824
+  languageName: node
+  linkType: hard
+
 "events@npm:1.1.1":
   version: 1.1.1
   resolution: "events@npm:1.1.1"
@@ -89,6 +96,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-s3@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "react-s3@npm:1.3.1"
+  dependencies:
+    crypto-js: ^3.1.9-1
+  checksum: 19595193215e58619f9b2f97c20f22206c032e2de2fa4b802ba8042769dd782afe2f9e2992c8b2090da94f87c8eea2a1c24f4a8cc9821c933074dacd3a9f04ba
+  languageName: node
+  linkType: hard
+
 "sax@npm:1.2.1":
   version: 1.2.1
   resolution: "sax@npm:1.2.1"
@@ -108,6 +124,7 @@ __metadata:
   resolution: "storefrontend@workspace:."
   dependencies:
     aws-sdk: ^2.1105.0
+    react-s3: ^1.3.1
   languageName: unknown
   linkType: soft
 

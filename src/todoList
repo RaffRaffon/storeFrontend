@@ -140,3 +140,6 @@ After adding an item, and clicking on the link to items panel, the new item does
 Check if you even need the state.isLoggedIn in the dependecy list in Header comp
 
 In order to stop the useEffect from happening at initial load (which you don't want), use React.memo, like Natanel Yosef Soussana said in facebook.
+
+Un install UploadImageToS3WithNativeSdk with yarn.
+
