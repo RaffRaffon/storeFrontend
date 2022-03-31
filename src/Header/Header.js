@@ -21,22 +21,25 @@ function Header() {
     Storage.prototype.getObj = function (key) {
         return JSON.parse(this.getItem(key))
     }
+
+  
     useEffect(() => {
         // Need to make this useEffect to happen one time only and not on every page 
-        if (!state.itemsFirstLoad) {
-            // Using redux perhaps fixes the problem, but it still runs on every page.
-            setTheItems()
-        }
+        // Check if you even need the state.isLoggedIn in the dependecy list in Header comp
+        if (!state.itemsFirstLoad || state.isItemArrayChanged !== null) setTheItems()
+        // Using redux perhaps fixes the problem, but it still runs on every page.
+
         // if (localStorage.getObj('userDetails') !== null) {
         //     setName(localStorage.getObj('userDetails').userName)
         // }
         async function setTheItems() {
             const items = await ItemsService.getAllItems()
             const originalAllItems = [...items]
+            console.log("set the items is working");
             dispatch({ type: "SETITEMS", payload: { items, originalAllItems } })
         }
 
-    }, [state.isLoggedIn])
+    }, [state.isLoggedIn, state.isItemArrayChanged])
     useEffect(() => {
         async function getUserData() {
             const personalData = await usersService.getPersonalData()

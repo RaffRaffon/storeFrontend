@@ -1,8 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch,useSelector} from "react-redux";
 import Header from "../Header/Header"
 import { ItemsService } from "../services/items.service"
 import './additems.css';
 function AddItems() {
+    const state = useSelector(state => state)
+    
+    const dispatch = useDispatch()
     const [itemImagePreview, setItemImagePreview] = useState()
 
     async function addItem() {
@@ -16,11 +20,14 @@ function AddItems() {
         const description = document.getElementById("desc").value
         const itemData = { name, price, picture, description }
         alert(await ItemsService.addItem(itemData))
+        dispatch({ type: "REDUXITEMSCHANGE" })
     }
 
     function changeItemPreview(e) {
         setItemImagePreview(e.target.value)
     }
+
+    
     return (
         <div>
             <Header />

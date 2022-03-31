@@ -132,3 +132,11 @@ Consider adding phone number validation. Try react-phone-number-input in npm.
 Try calling this number from your android phone and see if it rings: +97288664015
 
 Make uploading images to amazon s3 services.
+
+After deleting an item, the page must be refreshed in order to see the changes in the items list. fix this. 
+
+After adding an item, and clicking on the link to items panel, the new item doesn't show up, only refreshing the page fixes it. fix this.
+
+Check if you even need the state.isLoggedIn in the dependecy list in Header comp
+
+In order to stop the useEffect from happening at initial load (which you don't want), use React.memo, like Natanel Yosef Soussana said in facebook.

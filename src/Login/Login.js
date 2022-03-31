@@ -15,7 +15,7 @@ function Login() {
     const userData = { email, password }
     const result = await (usersService.checkCreds(userData))
     if (!result.checkCredsResult) {
-      alert("Either the email or the password are wrong. Enter the email address in lowercase.")
+      alert("Either the email or the password are wrong.")
     } else {
       localStorage['store-user'] = result.token
       const userName = await usersService.checkTokenForLogin(localStorage['store-user'])

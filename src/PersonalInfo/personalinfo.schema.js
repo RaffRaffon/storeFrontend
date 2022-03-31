@@ -25,10 +25,10 @@ export const personalinfoSchema = yup.object().shape({
 	anumber: yup.number()
 		.required('Apartment number is required'),
 	city: yup.string()
-		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
 		.min(2, 'Too short')
 		.required('Required'),
 	zipcode: yup.string()
+		.matches(/^[0-9]+$/, "Only numbers are allowed for this field ")
 		.min(7, 'Too short')
 		.max(7, 'Too long')
 		.required('Required'),

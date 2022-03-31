@@ -45,10 +45,14 @@ function SpecificItem() {
     return (
         <div>
             <Header />
-            {item.Name}
-            <img src={item.Picture} alt="itemPicture"></img>
-            {item.Price}
-            {item.Description}
+            {item.Name}<br/>
+            <br/>
+            <img src={item.Picture} alt="itemPicture"></img><br/>
+            <br/>
+            {item.Price}<br/>
+            <br/>
+            {item.Description}<br/>
+            <br/>
             <button onClick={() => { addToCart(item.Name, item.Price, item.Picture, 1, item._id); }}>Add to cart</button>
         </div>
     )
