@@ -143,3 +143,22 @@ In order to stop the useEffect from happening at initial load (which you don't w
 
 Un install UploadImageToS3WithNativeSdk with yarn.
 
+Need to put the api key and api secret inside .env files, in the backend.
+
+If the input "image URL" field is filled up with a URL, use that URL to upload that image into cloudinary services. do not use that url given, who knows what can happen to it. 
+
+Try to delete the aws s3 accounts youve made.
+
+Need to change image preview at add items and edit item components, when using the "Or image upload" option, just like you did with "Image URL:" option. 
+
+Recheck if everything works at EditItem component, regrading to image change. you've made some changes, after playing around with cloudinary upload, that might will make some edge cases that will make something break.
+
+If the admin didn't uploaded any images at AddItems comp, block him, and more - if he didnt filled price, name, block him from adding the item. add this validations.
+
+Add a validiation to EditItem comp, for all its fields.
+
+Need to implement deletions from cloudinary after editing an item or deleting an item. (delete the images, you no longer need them.)
+
+After deleting an image from cloudinary, for some reason, you can enter its URL, even after the deletion, and even if you cant see the image in cloudinary assets. 
+
+Convert unneccesary lets and vars into consts.

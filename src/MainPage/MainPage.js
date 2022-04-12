@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { usersService } from "../services/users.service";
 import { CartService } from '../services/cart.service';
 import { Link } from 'react-router-dom';
+
 function MainPage() {
   const dispatch = useDispatch()
   const state = useSelector(state => state)
@@ -85,13 +86,10 @@ function MainPage() {
             <p> {item.Name}</p>
             <p> {item.Price}</p>
             <button onClick={() => { addToCart(item.Name, item.Price, item.Picture, 1, item._id); }}>Add to cart</button>
-            <Link to={"/item/"+item._id}>Item details</Link>
+            <Link to={"/item/" + item._id}>Item details</Link>
           </div></div>)
       })}
-
-
     </div>
-
   );
 }
 

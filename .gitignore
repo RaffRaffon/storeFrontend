@@ -22,4 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 src/UploadImageToS3WithReactS3/ReactS3.js
+.env
 .gitignore
+src/UploadImageToS3WithReactS3/ReactS3/ReactS3.js
+ReactS3/ReactS3.js
+ReactS3/ReactS3.jsx

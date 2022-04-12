@@ -12,9 +12,9 @@ function ItemsPanel() {
         if (state.originalAllItems.length > 0) setItems(state.originalAllItems)
     }, [state.originalAllItems])
 
-    async function deleteItem(itemId, itemIndex) {
+    async function deleteItem(itemId, itemIndex,itemName) {
         if (window.confirm("Are you sure?") === true) {
-            alert(await ItemsService.deleteItem(itemId))
+            alert(await ItemsService.deleteItem(itemId,itemName))
             const itemsArray = [...items]
             itemsArray.splice(itemIndex, 1)
             setItems(itemsArray)
@@ -42,7 +42,7 @@ function ItemsPanel() {
                         <td>{item.Name}</td>
                         <td>{item.Price}</td>
                         <td><Link to={"/edititem/" + item._id}>Edit</Link></td>
-                        <td><button onClick={() => deleteItem(item._id, index)}>Delete</button></td>
+                        <td><button onClick={() => deleteItem(item._id, index,item.Name)}>Delete</button></td>
                     </tr>)
                 })}
             </table>

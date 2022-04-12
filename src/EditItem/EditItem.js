@@ -1,39 +1,39 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
+import CloudinaryUpload from "../CloudinaryUpload/CloudinaryUpload";
 import Header from "../Header/Header"
 import { ItemsService } from "../services/items.service"
 import './edititem.css';
+import { useDispatch, useSelector } from "react-redux";
 function EditItem() {
+    const state = useSelector(state => state)
+    const dispatch = useDispatch()
     const { id } = useParams()
     const [itemImagePreview, setItemImagePreview] = useState('')
     const [item, setItem] = useState({})
-
+    async function getItem() {
+        setItem(await ItemsService.getSpecificItem(id))
+    }
     useEffect(() => {
-        async function getItem() {
-            setItem(await ItemsService.getSpecificItem(id))
-        }
         getItem()
+        dispatch({ type: "SETIMAGEBLOB" })
     }, [])
 
     useEffect(() => {
         if (item.Picture) setItemImagePreview(item.Picture)
     }, [item])
     async function editItem() {
-        const name = document.getElementById("name").value
+        const name = document.getElementById("name").value.trim()
+        let imageUrl
+        if (state.imageBlob) imageUrl = await ItemsService.handleUpload(state.imageBlob, name, "ByBlob")
+        else imageUrl = await ItemsService.handleUpload(item.Picture, name, "ByUrl")
         const price = document.getElementById("price").value
-        const imageurl = document.getElementById("imageurl").value
-        const imageupload = document.getElementById("imageupload").value
-        let picture = ''
-        if (imageurl !== '') picture = imageurl
-        else if (imageupload !== '') picture = imageupload
         const description = document.getElementById("desc").value
-        const itemData = { name, price, picture, description, _id:id}
+        const itemData = { name, price, picture: imageUrl, description, _id: id, oldName: item.Name }
         alert(await ItemsService.editItem(itemData))
+        getItem()
     }
 
-    function changeItemPreview(e) {
-        setItemImagePreview(e.target.value)
-    }
     return (
         <div>
             <Header />
@@ -44,9 +44,7 @@ function EditItem() {
             <br />
             Price:<input defaultValue={item.Price} id="price"></input><br />
             <br />
-            Image URL:<input defaultValue={item.Picture} id="imageurl" onChange={changeItemPreview}></input><br />
-            <br />
-            Or image upload:<input id="imageupload"></input><br />
+            Image upload: <CloudinaryUpload alterImagePreview={(imageInBase64) => setItemImagePreview(imageInBase64)} /><br />
             <br />
             Description:<textarea defaultValue={item.Description} id="desc"></textarea><br />
             <br />

@@ -1,7 +1,7 @@
 const appReducer = (state = {
     originalAllItems: [], items: [], itemsFirstLoad: false,
     displayCart: false, cartChanged: false, isLoggedIn: false, userName: "",
-    totalProducts: 0, totalPrice: 0, checkoutCompleted: false, isItemArrayChanged: false
+    totalProducts: 0, totalPrice: 0, checkoutCompleted: false, isItemArrayChanged: false, imageBlob: undefined
 }, action) => {
     switch (action.type) {
         case "LOGIN":
@@ -13,7 +13,6 @@ const appReducer = (state = {
         case "SETNEWITEMS":
             return { ...state, items: action.payload.newItems }
         case "REDUXITEMSCHANGE":
-            console.log("items array changed");
             return { ...state, isItemArrayChanged: !state.isItemArrayChanged }
         case "DISPLAYCART":
             return { ...state, displayCart: (!state.displayCart) }
@@ -25,6 +24,8 @@ const appReducer = (state = {
             return { ...state, totalProducts: action.payload.totalProducts, totalPrice: action.payload.totalPrice || state.totalPrice }
         case "ORDERCOMPLETED":
             return { ...state, checkoutCompleted: true }
+        case "SETIMAGEBLOB":
+            return { ...state, imageBlob: action.payload?.imageBlob || undefined }
         default:
             return state
     }
